@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Supabase CRUD</title>
+
+    <link rel="stylesheet"
+          href="./src/style.css">
+
+</head>
+
+<body>
+
+    <h1>Supabase CRUD</h1>
+
+
+    <!-- FORM -->
+
+    <form id="productForm">
+
+        <input
+            type="hidden"
+            id="productId"
+        >
+
+        <input
+            type="text"
+            id="name"
+            placeholder="Tên sản phẩm"
+        >
+
+        <input
+            type="number"
+            id="price"
+            placeholder="Giá"
+        >
+
+        <button type="submit">
+            Lưu
+        </button>
+
+    </form>
+
+
+    <!-- TABLE -->
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>ID</th>
+
+                <th>Tên sản phẩm</th>
+
+                <th>Giá</th>
+
+                <th>Thao tác</th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody id="productList">
+
+        </tbody>
+
+    </table>
+
+
+    <script
+        type="module"
+        src="./src/app.js">
+    </script>
+
+</body>
+
+</html>
