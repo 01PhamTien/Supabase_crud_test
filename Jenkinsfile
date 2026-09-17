@@ -9,10 +9,17 @@ pipeline {
             }
         }
 
+        stage('Check Node') {
+            steps {
+                sh 'node --version'
+                sh 'npm --version'
+            }
+        }
+
         stage('Deploy to Vercel') {
             steps {
                 withCredentials([string(credentialsId: 'vercel-token', variable: 'VERCEL_TOKEN')]) {
-                    bat 'npx vercel --prod --token=%VERCEL_TOKEN% --yes'
+                    sh 'npx vercel --prod --token=$VERCEL_TOKEN --yes'
                 }
             }
         }
