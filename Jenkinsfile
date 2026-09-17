@@ -3,22 +3,19 @@ pipeline {
 
     stages {
 
-        stage('Get Code') {
-            steps {
-                echo 'Dang lay code tu GitHub...'
-            }
-        }
-
         stage('Build') {
             steps {
-                echo 'Dang build project...'
+                echo 'Build project...'
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy to Vercel') {
             steps {
-                echo 'Dang deploy len Vercel...'
+                withCredentials([string(credentialsId: 'vercel-token', variable: 'VERCEL_TOKEN')]) {
+                    bat 'npx vercel --prod --token=%VERCEL_TOKEN% --yes'
+                }
             }
         }
+
     }
 }
