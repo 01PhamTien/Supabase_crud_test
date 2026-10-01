@@ -3,6 +3,40 @@ pipeline {
 
     stages {
 
+        stage('Notify Push Code') {
+            steps {
+                withCredentials([
+                    string(credentialsId: 'telegram-bot-token', variable: 'TELEGRAM_TOKEN'),
+                    string(credentialsId: 'telegram-chat-id', variable: 'TELEGRAM_CHAT_ID')
+                ]) {
+                    script {
+                        def commit = sh(
+                            script: 'git rev-parse --short HEAD',
+                            returnStdout: true
+                        ).trim()
+
+                        def commitMessage = sh(
+                            script: 'git log -1 --pretty=%s',
+                            returnStdout: true
+                        ).trim()
+
+                        def message = """📦 Có code mới được push
+
+Repository: 01PhamTien/Supabase_crud_test
+Branch: main
+Commit: ${commit}
+Message: ${commitMessage}"""
+
+                        sh """
+                            curl -s -X POST "https://api.telegram.org/bot\$TELEGRAM_TOKEN/sendMessage" \
+                            -d chat_id="\$TELEGRAM_CHAT_ID" \
+                            --data-urlencode text='${message}'
+                        """
+                    }
+                }
+            }
+        }
+
         stage('Build') {
             steps {
                 echo 'Build project...'
