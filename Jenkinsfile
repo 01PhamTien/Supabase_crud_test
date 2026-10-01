@@ -29,11 +29,11 @@ pipeline {
                             --token="$VERCEL_TOKEN" \
                             --project="$VERCEL_PROJECT_ID" \
                             --scope="$VERCEL_ORG_ID" \
-                            --yes
+                            --yes \
+                            --logs
                     '''
                 }
             }
         }
-
     }
 }
